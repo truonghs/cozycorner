@@ -8,6 +8,9 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
+        tablet: "640px",
+        laptop: "1024px",
+        desktop: "1280px",
         "2xl": "1400px",
       },
     },
@@ -28,6 +31,10 @@ module.exports = {
       "bg-main": "#F5DEB3",
       "text-main": "#333333",
       brown: "#8B4513",
+      red: "#FF0000",
+      white: "#fff",
+      black: "#000",
+      "bg-blue": "#6495ED",
     },
     extend: {
       colors: {
