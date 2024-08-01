@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "../../partials/ClientPartials/Header/Header";
+import Footer from "@/partials/ClientPartials/Footer/Footer";
 
 function ClientLayout({ children }) {
   return (
-    <div>
+    <div className="relative">
       <Header />
       {children}
     </div>
