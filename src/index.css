@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -64,6 +65,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-text-main;
+  }
+  html {
+    @apply scrollbar-thin scrollbar-thumb scrollbar-track font-nunito;
   }
 }

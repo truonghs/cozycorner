@@ -7,28 +7,35 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     colors: {
       blue: "#1fb6ff",
+      "blue-dark": "#222e3c",
       "purple-light": "#E6E6FA",
       purple: "#7e5bef",
       pink: "#ff49db",
       "pink-light": "#FFB6C1",
       orange: "#ff7849",
       "orange-dark": "#D2691E",
+      "green-dark": "#228B22",
       green: "#13ce66",
       "green-light": "#98FB98",
       yellow: "#ffc82c",
       "gray-dark": "#273444",
       gray: "#8492a6",
       "gray-light": "#F0F0F0",
-      "bg-main": "#F5DEB3",
+      "off-white": "#F5DEB3",
       "text-main": "#333333",
       brown: "#8B4513",
+      red: "#FF0000",
+      white: "#fff",
+      black: "#000",
+      "bg-blue": "#6495ED",
+      "yellow-dark": "#B8860B",
+      "bg-main": "#f7e5c2",
+      "bg-admin": "#F4F5F9",
     },
+
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -84,7 +91,64 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        "banner-0": "url('@/images/banner-0.jpg')",
+        "banner-1": "url('@/images/banner-1.jpg')",
+        "banner-2": "url('@/images/banner-2.jpg')",
+        "banner-3": "url('@/images/banner-3.jpg')",
+      },
+      fontFamily: {
+        dancing: ["Dancing Script", "cursive"],
+        nunito: ["Nunito", "serif"],
+      },
+      width: {
+        desktop: "1200px",
+      },
+      screens: {
+        mobile: "560px",
+        tablet: "800px",
+        laptop: "1000px",
+        desktop: "1200px",
+        "2xl": "1500px",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        ".no-scrollbar": {
+          /* Firefox */
+          "scrollbar-width": "none",
+          /* Safari and Chrome */
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+        ".scrollbar-thin": {
+          "::-webkit-scrollbar": {
+            width: "0px",
+            height: "0px",
+          },
+        },
+        ".scrollbar-thumb": {
+          "::-webkit-scrollbar-thumb": {
+            backgroundColor: "#ffc82c", // Màu của thumb
+            borderRadius: "10px",
+          },
+        },
+        ".scrollbar-track": {
+          "::-webkit-scrollbar-track": {
+            backgroundColor: "transparent", // Màu của track
+            borderRadius: "10px",
+          },
+        },
+        ".scrollbar-thumb:hover": {
+          "::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "#cd9b32", // Màu của thumb khi hover
+          },
+        },
+      });
+    },
+  ],
 };
