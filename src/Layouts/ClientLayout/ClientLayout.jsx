@@ -7,6 +7,7 @@ function ClientLayout({ children }) {
     <div className="relative">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }

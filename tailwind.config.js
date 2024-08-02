@@ -10,6 +10,7 @@ module.exports = {
     },
     colors: {
       blue: "#1fb6ff",
+      "blue-dark": "#222e3c",
       "purple-light": "#E6E6FA",
       purple: "#7e5bef",
       pink: "#ff49db",
@@ -23,7 +24,7 @@ module.exports = {
       "gray-dark": "#273444",
       gray: "#8492a6",
       "gray-light": "#F0F0F0",
-      "bg-main": "#F5DEB3",
+      "off-white": "#F5DEB3",
       "text-main": "#333333",
       brown: "#8B4513",
       red: "#FF0000",
@@ -31,7 +32,8 @@ module.exports = {
       black: "#000",
       "bg-blue": "#6495ED",
       "yellow-dark": "#B8860B",
-      "off-white": "#f7e5c2",
+      "bg-main": "#f7e5c2",
+      "bg-admin": "#F4F5F9",
     },
 
     extend: {

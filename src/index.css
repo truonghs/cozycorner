@@ -65,7 +65,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-bg-main text-text-main;
+    @apply text-text-main;
   }
   html {
     @apply scrollbar-thin scrollbar-thumb scrollbar-track font-nunito;

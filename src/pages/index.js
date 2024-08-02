@@ -1,3 +1,3 @@
-import Home from "./Home/Home";
+import Home from "./Client/Home/Home";
 
 export { Home };

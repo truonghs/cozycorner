@@ -3,7 +3,7 @@ import Badge from "../Badge/Badge";
 import { FaMagnifyingGlass, FaBasketShopping } from "react-icons/fa6";
 function ProductCard() {
   return (
-    <div className="mobile:w-[220px] w-[46vw] flex flex-col items-center justify-center bg-off-white rounded-[14px] pb-2 shadow-sm shadow-black/20 mb-2">
+    <div className="mobile:w-[220px] w-[46vw] flex flex-col items-center justify-center bg-bg-main rounded-[14px] pb-2 shadow-sm shadow-black/20 mb-2">
       <div className="relative">
         <div className="absolute mobile:top-2 mobile:left-2 top-1 left-0.5 flex flex-col mobile:gap-2 gap-0">
           <Badge value={"-25%"} className={"bg-red"}></Badge>

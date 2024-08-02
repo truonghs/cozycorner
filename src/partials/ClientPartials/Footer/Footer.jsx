@@ -34,7 +34,7 @@ function Footer() {
                 <span className="font-bold text-yellow">Địa chỉ: </span>70 Lữ Gia, Phường 15, Quận 11, TP.HCM
               </div>
               <div>
-                <span className="font-bold text-yellow">Điện thoại: </span>1900 6750
+                <span className="font-bold text-yellow">Điện thoại: </span>1900 1900
               </div>
               <div>
                 <span className="font-bold text-yellow">Email: </span>support@cozycorner.vn
