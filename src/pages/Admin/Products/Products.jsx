@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+
 import { BiDish } from "react-icons/bi";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
@@ -15,11 +17,13 @@ function Products() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    prevPage: null,
+    nextPage: 2,
+    totalPages: 2,
+  });
   const debounced = useDebounce(searchValue, 500);
-  const query = useQuery();
-  const page = query.get("page");
-  const [currentPage, setCurrentPage] = useState(page ? page : 1);
   const pages = Array.from({ length: 3 }, (_, index) => index + 1);
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -34,42 +38,45 @@ function Products() {
   const handleChange = (e) => {
     const searchValue = e.target.value;
     if (!searchValue.startsWith(" ")) {
+      setPagination({ ...pagination, currentPage: 1 });
       setSearchValue(searchValue);
     }
   };
+  const handlePageChange = (value) => {
+    if (value) {
+      setPagination({ ...pagination, currentPage: value });
+    }
+  };
   const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (pagination.currentPage > 1) {
+      let tmp = pagination.currentPage;
+      setPagination({ ...pagination, currentPage: tmp - 1 });
     }
   };
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+    if (pagination.currentPage < pagination.totalPages) {
+      console.log(pagination.currentPage);
+      let tmp = pagination.currentPage;
+      setPagination({ ...pagination, currentPage: tmp + 1 });
     }
   };
   const fetchData = async () => {
-    await axiosClient
-      .get(`/admin/products?page=${currentPage}&limit=${currentLimit}`)
-      .then(({ data }) => {
-        setProducts(data.data);
-        setTotalPages(data.pagination.totalPages);
-      })
-      .catch((error) => console.log(error));
-  };
-  useEffect(() => {
-    fetchData();
-  }, [currentPage]);
-  useEffect(() => {
     if (!debounced.trim()) {
-      fetchData();
+      await axiosClient
+        .get(`/admin/products?page=${pagination.currentPage}&limit=${currentLimit}&keyword=${debounced}`)
+        .then(({ data }) => {
+          setProducts(data.data);
+          setPagination({ ...data.pagination });
+        })
+        .catch((error) => console.log(error));
     } else {
       const fetchApi = async () => {
         setLoading(true);
         await axiosClient
-          .get(`/product/search/${debounced}`)
+          .get(`/admin/products?page=${pagination.currentPage}&limit=${currentLimit}&keyword=${debounced}`)
           .then(({ data }) => {
-            setProducts(data);
-            setLoading(false);
+            setProducts(data.data);
+            setPagination({ ...data.pagination });
           })
           .catch((error) => {
             console.log(error);
@@ -77,54 +84,29 @@ function Products() {
       };
       fetchApi();
     }
-  }, [debounced]);
-  const convertStringDate = (stringTime) => {
-    var date = new Date(stringTime);
-    var nam = date.getFullYear();
-    var thang = date.getMonth() + 1;
-    var ngay = date.getDate();
-    var gio = date.getHours();
-    var phut = date.getMinutes();
-    var giay = date.getSeconds();
-    const chuoiNgayThangNam = (ngay < 10 ? "0" : "") + ngay + "/" + (thang < 10 ? "0" : "") + thang + "/" + nam;
-    return {
-      date: chuoiNgayThangNam,
-      time: gio + "h" + phut + "m" + giay + "s",
-    };
   };
-  const deleteProduct = (slug) => {
-    // confirm(slug);
-  };
-
-  const selectedProduct = (slug) => {
-    if (selectedProducts.includes(slug)) {
-      const fillteredArr = selectedProducts.filter((productSlug) => productSlug !== slug);
-      setSelectedProducts([...fillteredArr]);
-    } else {
-      setSelectedProducts([...selectedProducts, slug]);
-    }
-  };
-  const selectedAllProducts = () => {
-    const slugArr = products.map((product) => product?.slug);
-    if (selectedProducts.length > 0) {
-      setSelectedProducts([]);
-    } else {
-      setSelectedProducts([...slugArr]);
-    }
-  };
-  const deleteSelectedproduct = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    fetchData();
+  }, [pagination.currentPage, debounced]);
 
   return (
     <div className="p-10 pb-0 h-full">
-      <div className="bg-white p-4 flex flex-col items-end">
-        <Button className={"bg-orange  m-1 hover:bg-orange/90 py-4"} asChild>
-          <Link to={"/admin/newproduct"}>
-            <div className="text-3xl font-bold">+</div>
-            <BiDish className="text-3xl font-bold" />
-          </Link>
-        </Button>
+      <div className="bg-white p-4 flex flex-col items-center">
+        <div className="flex items-center w-full justify-between">
+          <div className="w-fit  h-12 bg-white rounded-full flex items-center justify-between border-solid border-[1px] border-gray/50 overflow-hidden duration-300 hover:shadow-lg">
+            <input onChange={(e) => handleChange(e)} className="outline-none ml-4 w-fit min-w-96 rounded-full text-lg" placeholder="Search here..." />
+            <div className="px-4 text-xl text-off-white hover:text-orange hover:cursor-pointer">
+              <FaMagnifyingGlass />
+            </div>
+          </div>
+          <Button className={"bg-orange  m-1 hover:bg-orange/90 py-4"} asChild>
+            <Link to={"/admin/newproduct"}>
+              <div className="text-3xl font-bold">+</div>
+              <BiDish className="text-3xl font-bold" />
+            </Link>
+          </Button>
+        </div>
+
         <div className="rounded-md border w-full mt-6">
           <Table>
             <TableHeader>
@@ -138,7 +120,7 @@ function Products() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.map((product, index) => (
+              {products?.map((product, index) => (
                 <TableRow key={index}>
                   <TableCell className="font-medium text-left">{product?._id}</TableCell>
                   <TableCell className="font-medium text-left">{product?.name}</TableCell>
@@ -159,40 +141,21 @@ function Products() {
               <PaginationItem onClick={() => handlePrevious()}>
                 <PaginationPrevious className={"bg-orange/20 text-orange hover:bg-orange hover:text-white duration-200"} />
               </PaginationItem>
-              {pages.map((item, index) => {
-                if (currentPage > 1) {
-                  if (index - 1 + currentPage > totalPages || index > 2) {
-                    return null;
-                  } else {
-                    return (
-                      <PaginationItem key={index}>
-                        <PaginationLink className={index === 1 ? "text-orange font-bold" : "text-black font-bold"}>{index - 1 + currentPage}</PaginationLink>
-                      </PaginationItem>
-                    );
-                  }
-                } else if (currentPage === totalPages) {
-                  if (index - 2 + currentPage > totalPages || index > 2) {
-                    return null;
-                  } else {
-                    return (
-                      <PaginationItem key={index}>
-                        <PaginationLink className={index === 2 ? "text-orange font-bold" : "text-black font-bold"}>{index - 2 + currentPage}</PaginationLink>
-                      </PaginationItem>
-                    );
-                  }
-                } else {
-                  if (index + currentPage > totalPages || index > 2) {
-                    return null;
-                  } else {
-                    return (
-                      <PaginationItem key={index}>
-                        <PaginationLink className={index === 0 ? "text-orange font-bold" : "text-black font-bold"}>{index + currentPage}</PaginationLink>
-                      </PaginationItem>
-                    );
-                  }
-                }
-              })}
-
+              {pagination.prevPage ? (
+                <PaginationItem onClick={() => handlePageChange(pagination.prevPage)}>
+                  <PaginationLink className={"hover:bg-orange hover:text-white duration-200"}>{pagination.prevPage}</PaginationLink>
+                </PaginationItem>
+              ) : null}
+              {pagination.currentPage ? (
+                <PaginationItem>
+                  <PaginationLink className={"bg-orange text-white duration-200"}>{pagination.currentPage}</PaginationLink>
+                </PaginationItem>
+              ) : null}
+              {pagination.nextPage ? (
+                <PaginationItem onClick={() => handlePageChange(pagination.nextPage)}>
+                  <PaginationLink className={"hover:bg-orange hover:text-white duration-200"}>{pagination.nextPage}</PaginationLink>
+                </PaginationItem>
+              ) : null}
               <PaginationItem onClick={() => handleNext()}>
                 <PaginationNext className={"bg-orange/20 text-orange hover:bg-orange hover:text-white duration-200"} />
               </PaginationItem>
