@@ -8,7 +8,6 @@ import { TbPackageExport } from "react-icons/tb";
 import { RiRefund2Line, RiCustomerService2Fill, RiBankLine } from "react-icons/ri";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import NewsCard from "@/components/NewsCard/NewsCard";
-import Footer from "@/partials/ClientPartials/Footer/Footer";
 export default function Home() {
   return (
     <div className=" bg-bg-main">
@@ -186,7 +185,7 @@ export default function Home() {
         <div className="desktop:max-w-[1200px] max-w-full flex justify-center items-center flex-col mobile:border-red mobile:border-[6px] rounded-md mobile:border-solid mobile:py-2 mobile:px-6 py-1 px-2 bg-[#ffd6b8]">
           <div className="font-dancing laptop:text-7xl text-4xl font-bold text-red">Món đang giảm giá</div>
           <div className="mt-4">
-            <img className="tablet:scale-100 scale-75" src={require("@/images/separate.webp")} />
+            <img className="tablet:scale-100 scale-75" src={require("@/images/separate.webp")} alt="" />
           </div>
           <div className="w-full tablet:mt-10 mt-6 rounded-[14px] overflow-hidden">
             <Carousel opts={{ dragFree: true }} className=" w-full select-none ">
@@ -226,7 +225,7 @@ export default function Home() {
         <div className="desktop:max-w-[1200px] max-w-full flex justify-center items-center flex-col mobile:border-orange-dark mobile:border-[6px] rounded-md mobile:border-solid mobile:py-2 mobile:px-6 py-1 px-2 bg-off-white">
           <div className="font-dancing laptop:text-7xl text-4xl font-bold  text-orange-dark">Được mua nhiều nhất</div>
           <div className="mt-4">
-            <img className="mobile:scale-100 scale-75" src={require("@/images/separate.webp")} />
+            <img className="mobile:scale-100 scale-75" src={require("@/images/separate.webp")} alt="separate" />
           </div>
           <div className="w-full mobile:mt-10 mt-6 flex gap-2 flex-wrap items-start justify-center">
             <ProductCard />
@@ -245,7 +244,7 @@ export default function Home() {
           <div className="flex items-center flex-col justify-center mt-10 mb-6">
             <div className="font-dancing laptop:text-7xl text-4xl font-bold ">Tin tức mới nhất</div>
             <div className="mt-4">
-              <img className="mobile:scale-100 scale-75" src={require("@/images/separate.webp")} />
+              <img className="mobile:scale-100 scale-75" src={require("@/images/separate.webp")} alt="separate" />
             </div>
           </div>
           <div className=" tablet:mt-10 mt-6 max-w-full">

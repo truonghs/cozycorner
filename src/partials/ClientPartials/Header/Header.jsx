@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { FaRegBell } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { BiFoodMenu } from "react-icons/bi";
 import { IoMdMenu } from "react-icons/io";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Drawer, DrawerOverlay, DrawerPortal, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 function Header() {
   const location = useLocation();
@@ -18,7 +16,7 @@ function Header() {
         <div className="flex flex-1 items-center justify-between desktop:max-w-[1200px] max-w-full gap-3 desktop:px-0 px-2  ">
           <div className="desktop:flex-[0.5] laptop:flex-[0.2] flex-[0.2]">
             <Link className=" flex-1 " to={"/"}>
-              <img className="max-w-[60px] desktop:max-w-[90px]" src="./logo.png" />
+              <img className="max-w-[60px] desktop:max-w-[90px]" src="./logo.png" alt="logo" />
             </Link>
           </div>
           <div className="desktop:flex pt-3 hidden items-center justify-around flex-[3.6] text-white ">

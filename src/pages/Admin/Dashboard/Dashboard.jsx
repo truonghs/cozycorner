@@ -25,7 +25,7 @@ const colChartData = [
 
 function Dashboard() {
   return (
-    <div className="bg-bg-admin p-10 pb-0 h-full">
+    <div className=" p-10 pb-0 h-full">
       <div className="flex gap-4">
         <div className="flex flex-[1.5] flex-col gap-4">
           <div className="flex flex-col gap-4 flex-1">
